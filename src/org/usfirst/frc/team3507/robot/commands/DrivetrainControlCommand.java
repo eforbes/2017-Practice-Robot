@@ -1,12 +1,13 @@
 package org.usfirst.frc.team3507.robot.commands;
 
+import org.usfirst.frc.team3507.robot.Robot;
+import org.usfirst.frc.team3507.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team3507.robot.Robot;
-import org.usfirst.frc.team3507.robot.RobotMap;
 
 /**
  * The default command for the Drivetrain subsystem
@@ -18,6 +19,7 @@ public class DrivetrainControlCommand extends Command {
 	
 	SendableChooser<DriveControlType> driveTypeSelector = new SendableChooser<>();
 	SendableChooser<DriveInputFunction> driveInputFunctionSelector = new SendableChooser<>();
+	Preferences preferences = Preferences.getInstance();
 	
 	public DrivetrainControlCommand() {
 		requires(Robot.drivetrain);
@@ -96,7 +98,7 @@ public class DrivetrainControlCommand extends Command {
 	}
 	
 	private double deadband(double value, DriveInputFunction inputFunction) {
-		double dead = SmartDashboard.getNumber("Deadband", RobotMap.JOYSTICK_DEFAULT_DEADBAND);
+		double dead = preferences.getDouble("Deadband", RobotMap.JOYSTICK_DEFAULT_DEADBAND);
 		
 		double result = 0.0;
 		
