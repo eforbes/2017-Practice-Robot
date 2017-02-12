@@ -25,13 +25,13 @@ public class Drivetrain extends Subsystem {
 	private RobotDrive robotDrive;
 	
 	public Drivetrain() {
-		changeTalonMode(talonLeftA, TalonControlMode.PercentVbus, 0);
-		changeTalonMode(talonLeftB, TalonControlMode.Follower, RobotMap.DRIVE_TALON_LEFT_A);
-		changeTalonMode(talonLeftC, TalonControlMode.Follower, RobotMap.DRIVE_TALON_LEFT_A);
+		configureTalon(talonLeftA, TalonControlMode.PercentVbus, 0);
+		configureTalon(talonLeftB, TalonControlMode.Follower, RobotMap.DRIVE_TALON_LEFT_A);
+		configureTalon(talonLeftC, TalonControlMode.Follower, RobotMap.DRIVE_TALON_LEFT_A);
 		
-		changeTalonMode(talonRightA, TalonControlMode.PercentVbus, 0);
-		changeTalonMode(talonRightB, TalonControlMode.Follower, RobotMap.DRIVE_TALON_RIGHT_A);
-		changeTalonMode(talonRightC, TalonControlMode.Follower, RobotMap.DRIVE_TALON_RIGHT_A);
+		configureTalon(talonRightA, TalonControlMode.PercentVbus, 0);
+		configureTalon(talonRightB, TalonControlMode.Follower, RobotMap.DRIVE_TALON_RIGHT_A);
+		configureTalon(talonRightC, TalonControlMode.Follower, RobotMap.DRIVE_TALON_RIGHT_A);
 		
 		talonRightA.setInverted(true);
 		
@@ -55,8 +55,9 @@ public class Drivetrain extends Subsystem {
 		robotDrive.stopMotor();
 	}
 	
-	private void changeTalonMode(CANTalon talon, TalonControlMode mode, double initialValue) {
+	private void configureTalon(CANTalon talon, TalonControlMode mode, double initialValue) {
 		talon.changeControlMode(mode);
 		talon.set(initialValue);
+		talon.enableBrakeMode(false);
 	}
 }
